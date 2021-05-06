@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# shellcheck source=SCRIPTDIR/lib
+. "$(dirname "$0")/lib"
+
+: "${ASDF_INSTALL_VERSION:?"Missing ASDF_INSTALL_VERSION"}"
+: "${ASDF_DOWNLOAD_PATH:?"Missing ASDF_DOWNLOAD_PATH"}"
+
+download() {
+  echo $(get_download_url)
+  curl -fsSL "$(get_download_url)" -o "${ASDF_DOWNLOAD_PATH}/buf.tar.gz" ||
+    echo "Download failed!" 1>&2
+}
+
+download

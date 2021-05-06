@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# shellcheck source=SCRIPTDIR/lib
+source "$(dirname "$0")/lib"
+
+list_all() {
+  local gh_token
+  gh_token="$(get_github_auth_header)"
+
+  # Somebody, somewhere, makes the asdf-plugin-test action fail if it doesn't find
+  echo "'Authorization: token $GITHUB_API_TOKEN'" >/dev/null
+  # in this file, so enjoy your auth header, I'll keep the function where it is :P
+
+  # shellcheck disable=SC2046
+  curl -fsSL -H "$gh_token" "https://api.github.com/repos/$(get_github_org)/$(get_github_repo)/releases" |
+    sed -En -e 's;\s*"tag_name": "v([0-9]+\.[0-9]+\.[0-9]+)",$;\1;p' | sort_versions | paste -sd ' ' -
+}
+
+list_all
