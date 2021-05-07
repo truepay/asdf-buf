@@ -14,6 +14,11 @@ get_download_url() {
   os=$(uname -s)
   arch=$(uname -m)
 
+  # Apple M1 architecture (arm64) doesn't have binaries, so we install the x86_64 version
+  if [[ "${os}" == "Darwin" && "${arch}" == "arm64" ]]; then
+    arch="x86_64"
+  fi
+
   # shellcheck disable=SC2154
   echo "https://github.com/$(get_github_org)/$(get_github_repo)/releases/download/v${ASDF_INSTALL_VERSION}/buf-${os}-${arch}.tar.gz"
 }
