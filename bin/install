@@ -9,21 +9,21 @@ source "$(dirname "$0")/lib"
 : "${ASDF_INSTALL_VERSION:?"Missing ASDF_INSTALL_VERSION"}"
 
 install() {
-  if [ ! -f "$ASDF_DOWNLOAD_PATH" ]; then
+  if [ ! -f "${ASDF_DOWNLOAD_PATH}" ]; then
     # shellcheck source=SCRIPTDIR/download
     source "$(dirname "$0")/download"
   fi
 
   mkdir -p "${ASDF_INSTALL_PATH}/bin" &&
     tar -xvzf "${ASDF_DOWNLOAD_PATH}/buf.tar.gz" -C "${ASDF_INSTALL_PATH}" --strip-components 1 &&
-    find "$ASDF_DOWNLOAD_PATH" -delete
+    find "${ASDF_DOWNLOAD_PATH}" -delete
 
-  if [ -x "$ASDF_INSTALL_PATH/bin/buf" ]; then
-    echo "buf $ASDF_INSTALL_VERSION has been installed"
+  if [ -x "${ASDF_INSTALL_PATH}/bin/buf" ]; then
+    echo "buf ${ASDF_INSTALL_VERSION} has been installed"
     exit 0
   else
-    echo "An error ocurred while installing buf $ASDF_INSTALL_VERSION" 1>&2
-    find "$ASDF_INSTALL_PATH" -delete
+    echo "An error ocurred while installing buf ${ASDF_INSTALL_VERSION}" 1>&2
+    find "${ASDF_INSTALL_PATH}" -delete
     exit 1
   fi
 }

@@ -31,9 +31,7 @@ sort_versions() {
 
 get_github_auth_header() {
   # shellcheck disable=SC2154
-  if [ -n "$GITHUB_API_TOKEN" ]; then
-    echo "Authorization: token $GITHUB_API_TOKEN"
-  else
-    echo "AuthorizeMy: butt"
+  if [ -n "${GITHUB_API_TOKEN}" ]; then
+    echo "Authorization: token ${GITHUB_API_TOKEN}"
   fi
 }
