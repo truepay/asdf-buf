@@ -1,0 +1,25 @@
+name: CI
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "bin/*"
+  push:
+    paths:
+      - "bin/*"
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  plugin_test:
+    name: asdf plugin test
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: asdf-vm/actions/plugin-test@v1
+        with:
+          command: buf --version
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
