@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# shellcheck source=SCRIPTDIR/lib
-source "$(dirname "$0")/lib"
-
 : "${ASDF_INSTALL_PATH:?"Missing ASDF_INSTALL_PATH"}"
 : "${ASDF_DOWNLOAD_PATH:?"Missing ASDF_DOWNLOAD_PATH"}"
 : "${ASDF_INSTALL_TYPE:?"asdf-buf supports release installs only"}"
