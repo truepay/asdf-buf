@@ -36,7 +36,10 @@ get_download_url() {
 }
 
 download() {
-  curl -fsSL "$(get_download_url)" -o "${ASDF_DOWNLOAD_PATH}/buf.tar.gz" ||
+  local download_url
+  download_url="$(get_download_url)"
+  echo "${download_url}"
+  curl -fsSL "${download_url}" -o "${ASDF_DOWNLOAD_PATH}/buf.tar.gz" ||
     echo "Download failed!" 1>&2
 }
 
