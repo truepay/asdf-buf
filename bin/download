@@ -3,6 +3,24 @@
 : "${ASDF_INSTALL_VERSION:?"Missing ASDF_INSTALL_VERSION"}"
 : "${ASDF_DOWNLOAD_PATH:?"Missing ASDF_DOWNLOAD_PATH"}"
 
+mac_arm64_binary() {
+  # Buf only started publishing Mac M1 Arm binaries on v0.42.0
+  local major_minor major minor
+
+  major_minor="${ASDF_INSTALL_VERSION%.*}"
+  major="${major_minor%%.*}"
+  major="${major##+(0)}" # remove leading zeros
+  minor="${major_minor##*.}"
+  minor="${minor##+(0)}" # remove leading zeros
+  if [[ "$major" -gt "0" ]]; then
+    echo "arm64"
+  elif [[ "$minor" -ge "42" ]]; then
+    echo "arm64"
+  else
+    echo "x86_64"
+  fi
+}
+
 get_download_url() {
   local os arch
 
@@ -11,7 +29,7 @@ get_download_url() {
 
   # Apple M1 architecture (arm64) doesn't have binaries, so we install the x86_64 version
   if [[ "${os}" == "Darwin" && "${arch}" == "arm64" ]]; then
-    arch="x86_64"
+    arch="$(mac_arm64_binary)"
   fi
 
   # shellcheck disable=SC2154
@@ -19,7 +37,9 @@ get_download_url() {
 }
 
 download() {
-  curl -fsSL "$(get_download_url)" -o "${ASDF_DOWNLOAD_PATH}/buf.tar.gz" ||
+  local download_url
+  download_url="$(get_download_url)"
+  curl -fsSL "${download_url}" -o "${ASDF_DOWNLOAD_PATH}/buf.tar.gz" ||
     echo "Download failed!" 1>&2
 }
 
