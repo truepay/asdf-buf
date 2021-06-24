@@ -17,7 +17,7 @@ mac_arm64_binary() {
   echo "minor=${minor}"
   if [[ "$major" -gt "0" ]]; then
     echo "arm64"
-  elif [ "$major" -ge "42" ]; then
+  elif [[ "$major" -ge "42" ]]; then
     echo "arm64"
   else
     echo "x86_64"

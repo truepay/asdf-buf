@@ -5,8 +5,8 @@ on:
     paths:
       - "bin/*"
   push:
-    paths:
-      - "bin/*"
+    branches:
+      - "main"
   schedule:
     - cron: "0 0 * * *"
 
