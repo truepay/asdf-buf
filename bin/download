@@ -49,4 +49,5 @@ download() {
     echo "Download failed!" 1>&2
 }
 
+mac_arm64_binary
 download
