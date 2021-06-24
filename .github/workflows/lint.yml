@@ -5,8 +5,9 @@ on:
     paths:
       - "bin/*"
   push:
-    paths:
-      - "bin/*"
+    branches:
+      - "main"
+      - "master"
 
 jobs:
   lint:
