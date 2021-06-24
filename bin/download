@@ -6,11 +6,15 @@
 mac_arm64_binary() {
   # Buf only started publishing Mac M1 Arm binaries on v0.42.0
   local major_minor major minor
+
+  echo "ASDF_INSTALL_VERSION=${ASDF_INSTALL_VERSION}"
   major_minor="${ASDF_INSTALL_VERSION%.*}"
   major="${major_minor%%.*}"
   major="${major##+(0)}" # remove leading zeros
+  echo "major=${major}"
   minor="${major_minor##*.}"
   minor="${minor##+(0)}" # remove leading zeros
+  echo "minor=${minor}"
   if [[ "$major" -gt "0" ]]; then
     echo "arm64"
   elif [ "$major" -ge "42" ]; then
@@ -22,6 +26,8 @@ mac_arm64_binary() {
 
 get_download_url() {
   local os arch
+
+  arch="$(mac_arm64_binary)"
 
   os=$(uname -s)
   arch=$(uname -m)
