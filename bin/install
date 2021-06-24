@@ -7,7 +7,6 @@
 
 install() {
   if [ ! -f "${ASDF_DOWNLOAD_PATH}" ]; then
-    # shellcheck source=SCRIPTDIR/download
     source "$(dirname "$0")/download"
   fi
 
