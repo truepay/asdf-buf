@@ -6,3 +6,4 @@ golang 1.17.3
 protoc 3.19.1
 cloudsql-proxy 1.27.0
 firebase 9.22.0
+bazel 3.7.2
