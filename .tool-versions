@@ -4,3 +4,4 @@ terraform 1.0.10
 github-cli 2.2.0
 golang 1.17.3
 protoc 3.19.1
+cloudsql-proxy 1.27.0
